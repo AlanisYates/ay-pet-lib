@@ -8,3 +8,4 @@ const {
 app.get('/pets', getAllPets);
 
 exports.api = functions.https.onRequest(app);
+
