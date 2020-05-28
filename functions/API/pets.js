@@ -1,19 +1,27 @@
+const { db } = require('../util/admin');
+
 exports.getAllPets = (req, res) => {
-    pets = [
-        {
-            'id': '1',
-            'name': 'Taco',
-            'age': '3',
-            'description': 'A wonderful Corgo',
-            'breed': 'corgi'
-        },
-        {
-            'id': '2',
-            'name': 'KiKi',
-            'age': '1',
-            'description': 'A fluffy Husky',
-            'breed': 'Husky'
-        }
-    ]
-    return res.json(pets);
-}
+    db
+        .collection('pets')
+        .orderBy('createdAt', 'desc')
+        .get()
+        .then((data) => {
+            let pets = [];
+            data.forEach((doc) => {
+                pets.push({
+                    petId: doc.id,
+                    name: doc.data().name,
+                    age: doc.data().age,
+                    breed: doc.data().breed,
+                    createdAt: doc.data().createdAt,
+                    description: doc.data().description,
+                    available: doc.data().available,
+                });
+            });
+            return res.json(pets)
+        })
+        .catch((err) => {
+            console.error(err);
+            return res.statue(500).json({ error: err.code });
+        });
+};
