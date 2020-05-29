@@ -83,3 +83,22 @@ exports.deletePet = (req, res) => {
             res.status(500).json({ error: err.code });
         });
 };
+
+// Edit Pet
+exports.editPet = (req, res) => {
+    if (req.body.todoId || req.body.createdAt) {
+        res.status(403).json({ message: 'Not allowed to edit' });
+    }
+    let document = db.collection('pets').doc(`${req.params.petId}`);
+    document.update(req.body)
+        .then(() => {
+            res.json({ message: 'Updated successfully' })
+        })
+        .catch((err) => {
+            console.error(err);
+            return res.status(500).json({
+                error: err.code
+            })
+        });
+};
+
