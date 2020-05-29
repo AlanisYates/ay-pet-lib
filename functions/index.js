@@ -12,6 +12,8 @@ const {
 // Users
 const {
     loginUser,
+    signUpUser,
+    uploadProfilePicture,
 } = require('./API/users');
 
 // Pets
@@ -22,6 +24,8 @@ app.put('/pets/:petId', editPet);
 
 // Users
 app.post('/login', loginUser);
+app.post('/signup', signUpUser);
+app.post('/user/image', auth, uploadProfilePhoto);
 
 exports.api = functions.https.onRequest(app);
 
