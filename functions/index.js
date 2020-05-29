@@ -21,7 +21,7 @@ app.delete('/pets/:petId', deletePet);
 app.put('/pets/:petId', editPet);
 
 // Users
-app.post('login', loginUser);
+app.post('/login', loginUser);
 
 exports.api = functions.https.onRequest(app);
 
