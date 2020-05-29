@@ -28,6 +28,8 @@ exports.getAllPets = (req, res) => {
         });
 };
 
+
+
 // Post One pet 
 exports.postOnePet = (req, res) => {
     if (req.body.name.trim() === '') {
