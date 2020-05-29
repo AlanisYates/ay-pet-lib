@@ -61,3 +61,25 @@ exports.postOnePet = (req, res) => {
             res.status(500).json({ error: 'Something went wrong' });
         });
 };
+
+
+// Delete pet
+
+exports.deletePet = (req, res) => {
+    const document = db.doc(`/pets/${req.params.petId}`);
+    document
+        .get()
+        .then((doc) => {
+            if (!doc.exists) {
+                return res.status(404).json({ error: 'Pet not found' })
+            }
+            return document.delete();
+        })
+        .then(() => {
+            res.json({ message: 'Delete successfull' });
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).json({ error: err.code });
+        });
+};
