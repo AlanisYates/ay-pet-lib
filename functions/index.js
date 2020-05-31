@@ -1,5 +1,6 @@
 const functions = require('firebase-functions');
 const app = require('express')();
+const auth = require('./util/auth')
 
 // Pets
 const {
@@ -13,7 +14,7 @@ const {
 const {
     loginUser,
     signUpUser,
-    uploadProfilePicture,
+    uploadProfilePhoto,
 } = require('./API/users');
 
 // Pets
