@@ -178,3 +178,18 @@ exports.getUserDetail = (req, res) => {
             return res.ststus(500).json({ error: error.code });
         });
 };
+
+// Update user details
+exports.updateUserDetails = (req, res) => {
+    let document = db.collection('users').doc(`${req.user.username}`);
+    document.update(req.body)
+        .then(() => {
+            res.json({ message: 'Update seccessfully' });
+        })
+        .catch((error) => {
+            console.error(error);
+            return res.status(500).json({
+                message: 'Cannot Update the value'
+            });
+        });
+};
